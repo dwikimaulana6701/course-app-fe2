@@ -8,16 +8,23 @@ import { NewspaperIcon } from '@heroicons/react/24/outline'
 import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 import { ClockIcon } from '@heroicons/react/24/outline'
 import Pagination from '../components/atoms/Pagination'
+import { getProducts } from '../services/api'
 
 const Category = () => {
     const [cards, setCards] = useState([]);
     
         useEffect(() => {
-            const stored = localStorage.getItem("cardData");
-            if (stored) {
-            setCards(JSON.parse(stored));
+        const fetchData = async () => {
+            try {
+            const response = await getProducts();
+            setCards(response.data);
+            } catch (error) {
+            console.error("Error fetching cards:", error);
             }
+        };
+        fetchData();
         }, []);
+
     return (
         <>
             <HomeLayouts>

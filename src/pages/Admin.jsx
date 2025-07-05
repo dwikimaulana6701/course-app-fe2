@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/organisems/Header";
+import { getProducts, createProduct, updateProduct, deleteProduct } from '../services/api';
 
 const AdminPage = () => {
   const defaultForm = {
@@ -13,43 +14,55 @@ const AdminPage = () => {
   };
 
   const [formData, setFormData] = useState(defaultForm);
-  const [cards, setCards] = useState(() => {
-    const stored = localStorage.getItem("cardData");
-    return stored ? JSON.parse(stored) : [];
-  });
-
-  const [editIndex, setEditIndex] = useState(null);
+  const [cards, setCards] = useState([]);
+  const [editId, setEditId] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem("cardData", JSON.stringify(cards));
-  }, [cards]);
+    fetchCards();
+  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (editIndex !== null) {
-      const updated = [...cards];
-      updated[editIndex] = formData;
-      setCards(updated);
-      setEditIndex(null);
-    } else {
-      setCards([...cards, formData]);
+  const fetchCards = async () => {
+    try{
+      const response = await getProducts();
+      setCards(response.data);
+    }catch (error) {
+      console.error("Error fetching cards:", error);
     }
-    resetForm();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editId) {
+        await updateProduct(editId, formData);
+      } else {
+        await createProduct(formData);
+      }
+      fetchCards();
+      resetForm();
+    } catch (err) {
+      console.error("Failed to save card", err);
+    }
   };
 
   const resetForm = () => {
     setFormData(defaultForm);
+    setEditId(null);
   };
 
-  const handleEdit = (index) => {
-    setFormData(cards[index]);
-    setEditIndex(index);
+  const handleEdit = (card) => {
+    setFormData(card);
+    setEditId(card.id);
   };
 
-  const handleDelete = (index) => {
-    const filtered = cards.filter((_, i) => i !== index);
-    setCards(filtered);
-    if (editIndex === index) resetForm();
+  const handleDelete = async (id) => {
+    try {
+      await deleteProduct(id);
+      fetchCards();
+      if (editId === id) resetForm();
+    } catch (err) {
+      console.error("Failed to delete card", err);
+    }
   };
 
   const formFields = [
@@ -85,16 +98,13 @@ const AdminPage = () => {
             </div>
           ))}
           <button type="submit" className="p-2 bg-blue-600 text-white rounded col-span-1 md:col-span-2">
-            {editIndex !== null ? "Update" : "Add"} Card
+            {editId ? "Update" : "Add"} Card
           </button>
 
-          {editIndex !== null && (
+          {editId && (
             <button
               type="button"
-              onClick={() => {
-                setEditIndex(null);
-                resetForm();
-              }}
+              onClick={resetForm}
               className="p-2 bg-gray-500 text-white rounded col-span-1 md:col-span-2"
             >
               Cancel Edit
@@ -125,13 +135,13 @@ const AdminPage = () => {
                   <td className="border p-2">{card.price}</td>
                   <td className="border p-2 space-x-2">
                     <button
-                      onClick={() => handleEdit(index)}
+                      onClick={() => handleEdit(card)}
                       className="px-3 py-1 bg-yellow-400 text-white rounded"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(index)}
+                      onClick={() => handleDelete(card.id)}
                       className="px-3 py-1 bg-red-500 text-white rounded"
                     >
                       Delete
