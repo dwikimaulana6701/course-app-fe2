@@ -1,12 +1,31 @@
-# React + Vite
+# 📦 React + Vite Course App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple course catalog application built using **React** and **Vite**, with API integration using **MockAPI**. It showcases modern React practices including reusable components, responsive layouts, and dynamic data fetching.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [MockAPI](https://mockapi.io/)
+- [ESLint](https://eslint.org/)
+- [pnpm](https://pnpm.io/)
 
-## Expanding the ESLint configuration
+## 🔧 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+To run this project locally:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dwikimaulana6701/course-app-fe2.git
+   cd course-app-fe2
+   pnpm install
+   ```
+2. Create a `.env` file in the root folder and add the following environment variable:
+   ```env
+   VITE_API_URL=https://6865e73589803950dbb08e41.mockapi.io/products
+   ```
+3. Start the development server:
+   ```bash
+   pnpm run dev
+   ```

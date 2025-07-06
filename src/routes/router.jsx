@@ -4,6 +4,7 @@ import RegisterPage from "../pages/RegisterPage";
 import HomePages from "../pages/HomePages";
 import Category from "../pages/Category";
 import AdminPage from "../pages/Admin";
+import Sidebar from "../components/organisems/Sidebar";
 
 export const router = createBrowserRouter([
     {
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
     {
         path: "/kategori",
         element: <Category />,
+    },
+    {
+        path: "/onGoingSidebar",
+        element: <Sidebar />,
     },
 ]);
