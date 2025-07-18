@@ -3,8 +3,11 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import HomePages from "../pages/HomePages";
 import Category from "../pages/Category";
-import AdminPage from "../pages/Admin";
-import Sidebar from "../components/organisems/Sidebar";
+
+import AdminLayout from "../layouts/AdminLayout";
+import Products from "../pages/admin/Products";
+import Dashboard from "../pages/admin/Dashboard";
+import Users from "../pages/admin/Users";
 
 export const router = createBrowserRouter([
     {
@@ -20,15 +23,16 @@ export const router = createBrowserRouter([
         element: <RegisterPage />,
     },
     {
-        path: "/admin",
-        element: <AdminPage />,
-    },
-    {
         path: "/kategori",
         element: <Category />,
     },
     {
-        path: "/onGoingSidebar",
-        element: <Sidebar />,
+        path: "/admin",
+        element: <AdminLayout />,
+        children: [
+            {path: "dashboard", element: <Dashboard />},
+            {path: "users", element: <Users />},
+            {path: "products", element: <Products />},
+        ],
     },
 ]);
