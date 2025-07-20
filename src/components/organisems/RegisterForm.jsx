@@ -7,7 +7,7 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    jenkel: "",
+    gender: "",
     phone: "",
     password: "",
     confirm: "",
@@ -84,14 +84,14 @@ const RegisterForm = () => {
         <div id="gender">
           <label
             className="text-grayCustom font-dmsans tracking-extra-tight text-sm md:font-normal md:text-base md:text-[#4A505C]"
-            htmlFor="jenkel"
+            htmlFor="gender"
           >
             Jenis Kelamin<span className="text-[#FF5C2B]"> *</span>
           </label>
           <div className="relative w-full">
             <select
-              name="jenkel"
-              id="jenkel"
+              name="gender"
+              id="gender"
               onChange={handleChange}
               className="relative border border-grayBorder rounded-x w-full font-dmsans font-normal text-sm tracking-extra-tight text-black h-12 px-x py-3 mt-1 appearance-none"
               required

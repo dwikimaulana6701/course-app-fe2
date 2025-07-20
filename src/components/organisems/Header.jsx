@@ -55,7 +55,7 @@ const Header = () => {
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-2 z-50">
                     <p className="px-4 py-2 text-sm text-gray-800">Hi, {currentUser?.name || "User"}</p>
-                    <Link to="/admin" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Admin</Link>
+                    <Link to="/admin/dashboard" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Admin</Link>
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
@@ -96,7 +96,7 @@ const Header = () => {
           ) : (
             <>
               <p className="text-gray-800">Hi, {currentUser?.name || "User"}</p>
-              <Link to="/admin" className="block text-gray-700">Admin</Link>
+              <Link to="/admin/dashboard" className="block text-gray-700">Admin</Link>
               <button
                 onClick={handleLogout}
                 className="w-full text-left text-red-500"
